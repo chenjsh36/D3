@@ -1,0 +1,35 @@
+<script src="../lib/d3/d3.js"></script>
+<script src="../d3.layout.cloud.js"></script>
+<body>
+<script>
+  var rx = [.1, .1, .3, .3, .3, .7, .7, .9, .9];
+  var ry = [.1, .1, .4, .4, .5, .7, .7, .7, .7];
+
+  d3.layout.cloud().size([1000, 1000])
+      .words([
+        "Hello", "world", "normally", "you", "want", "more", "words",
+        "than", "this"].map(function(d, i) {
+        return {text: d, size: 20 + Math.random() * 90, padding: 10};
+      }))
+      .rotate(function() { return ~~(Math.random() * 2) * 360; })
+      .fontSize(function(d) { return d.size; })
+      .on("end", draw)
+      .start();
+
+  function draw(words) {
+    d3.select("body").append("svg")
+        .attr("width", 1000)
+        .attr("height", 1000)
+      .append("g")
+        .attr("transform", "translate(500,500)")
+      .selectAll("text")
+        .data(words)
+      .enter().append("text")
+        .style("font-size", function(d) { return d.size + "px"; })
+        .attr("text-anchor", "middle")
+        .attr("transform", function(d) {
+          return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+        })
+        .text(function(d) { return d.text; });
+  }
+</script>

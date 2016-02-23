@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Canvas</title>
+</head>
+<body>
+	<div class="myCanvas" id="myCanvas">
+		
+	</div>
+	<script>
+		var canvas = document.createElement('canvas');
+		var cw = Math.pow(2, 11);
+		var ch = Math.pow(2, 11);
+		canvas.width = cw;
+		canvas.height = ch;
+		var c = canvas.getContext('2d');
+		c.fillStyle = 'red';
+		// c.textAlign = 'center';
+		c.fillRect(0, 0, cw, ch);
+		c.clearRect(20, 20, 100, 50);
+		// about measureText
+		// c.save();
+		// c.font = '16px serif';
+		// var w = c.measureText('hell' + '').width,
+			h = 16 << 1;
+		c.translate(20, 20);
+		// c.rotate(Math.PI/4, 0);
+		c.fillStyle = 'black';
+		c.fillText('hellom', 0, 0);
+		c.restore()
+		// console.log('width and height:', w, h);
+		var pixels = c.getImageData(0, 0, cw, ch).data;
+		console.log(pixels);
+		var myCanvas = document.getElementById('myCanvas');
+		myCanvas.appendChild(canvas);
+
+	</script>
+</body>
+</html>
